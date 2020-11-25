@@ -57,4 +57,18 @@ Seytech Customers CRUD application.
 
     * Homework
         * aaa
+
+
+## Day 3 - 11/23/2020
+    * Hook Up FE and BE
+    * Read about cookies, token. How they communicate between client and server
+    Tasks:
+     * (GET) Get single customer: https://seytech-customers-backend.herokuapp.com/api/v1/customer/:id 
+     Provide id in params
+     * (GET) Get rid of customers data and use: https://seytech-customers-backend.herokuapp.com/api/v1/customers endpoint
+     * (DELETE) Delete a customer: https://seytech-customers-backend.herokuapp.com/api/v1/customer/:id
+    * (POST) Create a customer: https://seytech-customers-backend.herokuapp.com/api/v1/create
+    Provide details in the body
+    * (PATCH) Update a customer: https://seytech-customers-backend.herokuapp.com/api/v1/customer/:id
+    Provide data in body and id in params
  
