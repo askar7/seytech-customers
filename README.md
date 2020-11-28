@@ -1,9 +1,11 @@
 Seytech Customers CRUD application.
 
 ## Data
+
     * id, name, lastName, avatar, email, state, phone, role, github username, courses, payments, status, repl progress, actions
 
 ## Features
+
     * Search, silter, sort
     * User Role(student, mentor, instructor, admin)
     * Add Student
@@ -11,6 +13,7 @@ Seytech Customers CRUD application.
     * Update Student
 
 ## Tech stack
+
     * React
     * MongoDB
     * Heroku
@@ -19,8 +22,8 @@ Seytech Customers CRUD application.
     * React-router
     * Reactstrap
 
-
 ## Teams
+
     * Back End:
         * Tamerlan
         * Aidana
@@ -30,13 +33,14 @@ Seytech Customers CRUD application.
     * Front End: Rest.
 
 ## Day 1 - 10/28/2020
+
     * Practice
-        * React Basics 
+        * React Basics
             * Life-cycle methods
             * Setstate
             * Component vs Class
             * Creating Data
-    
+
     * Reactstrap(Bootstrap)
     * CRUD Apps
     * Project start/management
@@ -44,13 +48,13 @@ Seytech Customers CRUD application.
     * Homework
         * Learn React Router
         * Clone from github
- 
 
 ## Day 2 - 10/29/2020
+
     * Practice
-        * React Basics 
+        * React Basics
             * aaa
-    
+
     * Reactstrap(Bootstrap)
     * CRUD Apps
     * Project start/management
@@ -58,14 +62,14 @@ Seytech Customers CRUD application.
     * Homework
         * aaa
 
-
 ## Day 3 - 11/23/2020
+
     * Hook Up FE and BE
 
     * Read about cookies, token. How they communicate between client and server
-    
+
     Tasks:
-         * (GET) Get single customer: https://seytech-customers-backend.herokuapp.com/api/v1/customer/:id 
+         * (GET) Get single customer: https://seytech-customers-backend.herokuapp.com/api/v1/customer/:id
          Provide id in params
 
          * (GET) Get rid of customers data and use: https://seytech-customers-backend.herokuapp.com/api/v1/customers endpoint
@@ -74,7 +78,11 @@ Seytech Customers CRUD application.
 
          * (POST) Create a customer: https://seytech-customers-backend.herokuapp.com/api/v1/create
         Provide details in the body
-        
+
          * (PATCH) Update a customer: https://seytech-customers-backend.herokuapp.com/api/v1/customer/:id
         Provide data in body and id in params
- 
+
+## Day 4 - 11/27/2020
+
+    * Lots of Code Cleanup
+    * Remove token from localstorage and instead use cookies
