@@ -5,9 +5,8 @@ import {
   Route,
   Link,
   Redirect,
-  withRouter,
 } from 'react-router-dom';
-import { Button, Container } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 import Customers from './components/Customers';
 import SingleCustomer from './components/SingleCustomer';
@@ -57,7 +56,7 @@ class App extends Component {
   };
   render() {
     const { customerName } = this.state;
-    console.log('isAuthorized', isAuthorized());
+    // console.log('isAuthorized', isAuthorized());
     return (
       <Container fluid="xl">
         <Router>

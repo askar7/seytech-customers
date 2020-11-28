@@ -142,7 +142,7 @@ class SingleCustomer extends Component {
         <div className="row">
           <div className="title">Avatar:</div>
           <div className="desc">
-            <img className="img" src={customer.avatar} />
+            <img className="img" src={customer.avatar} alt="customer avatar" />
           </div>
         </div>
         <div className="row">

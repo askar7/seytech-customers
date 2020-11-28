@@ -5,15 +5,14 @@ import { Button } from 'reactstrap';
 import { DebounceInput } from 'react-debounce-input';
 import { Link } from 'react-router-dom';
 import AddCustomer from './AddCustomer';
-import { arrowUp, arrowDown } from '../assets/images';
+// import { arrowUp, arrowDown } from '../assets/images';
+import { customersUrl } from './api';
 
 const options = [
   { value: 'name', label: 'Name' },
   { value: 'email', label: 'Email' },
   { value: 'github', label: 'Github' },
 ];
-
-const customersUrl = '/api/v1/customers';
 
 class Customers extends Component {
   constructor() {
@@ -23,7 +22,6 @@ class Customers extends Component {
       searchBy: 'name',
       sortBy: null,
       asc: false,
-      showAddCustomer: false,
       customers: [],
       isLoading: false,
     };
@@ -45,14 +43,9 @@ class Customers extends Component {
       })
       .catch((err) => {
         console.log(err);
-        // this.setState({ error: err})
+        this.setState({ error: err.message });
       });
   }
-
-  // increase = () => {
-  //   this.setState({ timer: this.state.timer + 1 });
-  // };
-
   onChange = (e) => {
     this.setState({ value: e.target.value });
     console.log('Search', e.target.value);
@@ -69,26 +62,8 @@ class Customers extends Component {
 
   render() {
     const { customers, isLoading } = this.state;
-    const { value, searchBy, sortBy, asc } = this.state;
-    // const filteredC = customers.filter((item) => {
-    //   return item[searchBy].toLowerCase().includes(value.toLowerCase());
-    // });
-    // let arrowIcon;
-    // if (sortBy !== null) {
-    //   // sort
-    //   filteredC.sort((a, b) => {
-    //     if (a.name > b.name) {
-    //       return asc ? 1 : -1;
-    //     } else if (b.name > a.name) {
-    //       return asc ? -1 : 1;
-    //     }
-    //     return 1;
-    //   });
-    //   // sort icon
-    //   arrowIcon = asc ? arrowUp : arrowDown;
-    // }
+    const { searchBy, sortBy } = this.state;
     let content;
-
     if (isLoading) {
       content = <div>Loading...</div>;
     }
@@ -99,7 +74,7 @@ class Customers extends Component {
             const {
               _id,
               name,
-              lastName,
+              // lastName,
               avatar,
               email,
               state,
@@ -108,7 +83,6 @@ class Customers extends Component {
               github,
               courses,
               payment,
-              status,
             } = customer;
             const url = `/customer/${_id}`;
             const urlEdit = `/customer/${_id}/edit`;
@@ -116,7 +90,7 @@ class Customers extends Component {
               <tr key={_id}>
                 <th scope="row">{ind + 1}</th>
                 <td>
-                  <img src={avatar} />
+                  <img src={avatar} alt="customers avatars" />
                 </td>
                 <td>
                   {' '}
@@ -217,21 +191,20 @@ class Customers extends Component {
 
 export default Customers;
 
-/*
-const data = [
-  {countryName: "USA", currency:"dollar", products:[
-    {name: "apple", active:true, subProducts:[
-      {name: "iPhone", price: 40, sold:4},
-      {name: "iPad", price: 530, sold:4},
-      {name: "watch", price: 530},
-    ]}
-  ]},
-  {countryName: "Russia", currency:"rubl", products:[
-    {name: "apple", active:true, subProducts:[
-      {name: "iPhone", price: 40, sold:4},
-      {name: "iPad", price: 530, sold:4},
-      {name: "watch", price: 530},
-    ]}
-  ]}
-]
-*/
+// const filteredC = customers.filter((item) => {
+//   return item[searchBy].toLowerCase().includes(value.toLowerCase());
+// });
+// let arrowIcon;
+// if (sortBy !== null) {
+//   // sort
+//   filteredC.sort((a, b) => {
+//     if (a.name > b.name) {
+//       return asc ? 1 : -1;
+//     } else if (b.name > a.name) {
+//       return asc ? -1 : 1;
+//     }
+//     return 1;
+//   });
+//   // sort icon
+//   arrowIcon = asc ? arrowUp : arrowDown;
+// }

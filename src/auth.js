@@ -1,4 +1,4 @@
 import Cookies from 'js-cookie';
 
-export const getAccessToken = () => Cookies.get('token', { secure: true });
+export const getAccessToken = async () => await Cookies.get('token');
 export const isAuthorized = () => !!getAccessToken();

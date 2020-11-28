@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
-
-const loginURL = '/api/v1/login';
-
+import { loginUrl } from './api';
 class Login extends Component {
   constructor() {
     super();
@@ -21,7 +19,7 @@ class Login extends Component {
   onSubmit = () => {
     const { email, password } = this.state;
 
-    fetch(loginURL, {
+    fetch(loginUrl, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
