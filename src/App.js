@@ -16,8 +16,8 @@ import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
 import NoMatch from './components/NoMatch';
-import { isAuthorized } from './auth';
-import Cookies from 'js-cookie';
+import { isAuthenticated, removeToken, getAccessToken } from './auth';
+// import Cookies from 'js-cookie';
 
 class App extends Component {
   constructor() {
@@ -37,9 +37,12 @@ class App extends Component {
   setUser = (userInfo) => this.setState({ userInfo, isLoggedIn: true });
 
   logOut = () => {
-    this.setState({ userInfo: {}, isLoggedIn: false });
-    // todo: remvoe token
-    Cookies.remove('token');
+    // in production
+    // Cookies.remove('token');
+    // simply rerender
+    this.setState({ isLoggedIn: false });
+    // in development
+    removeToken();
   };
 
   addCustomer = (customer) => {
@@ -50,13 +53,15 @@ class App extends Component {
     console.log(this.state.customers);
   };
 
-  onLoginSubmit = (customerName) => {
-    this.setState({ isLoggedIn: true, customerName: customerName });
+  onLoginSubmit = (customerName, token) => {
+    // only in development
+    localStorage.setItem('token', token);
     localStorage.setItem('customerName', customerName);
+    // simply rerender
+    this.setState({ isLoggedIn: true, customerName: customerName });
   };
   render() {
     const { customerName } = this.state;
-    // console.log('isAuthorized', isAuthorized());
     return (
       <Container fluid="xl">
         <Router>
@@ -77,7 +82,7 @@ class App extends Component {
               {' '}
               <Link to="/customers">Customers</Link>{' '}
             </li>
-            {isAuthorized() && (
+            {isAuthenticated() && (
               <li>
                 <Link to="/login" onClick={this.logOut}>
                   Logout
@@ -98,7 +103,7 @@ class App extends Component {
                 <Contact />
               </Route>
               <Route exact path="/customers">
-                {isAuthorized() ? (
+                {isAuthenticated() ? (
                   <Customers
                     addCustomer={this.addCustomer}
                     delete={this.delete}
@@ -121,7 +126,7 @@ class App extends Component {
                 />
               </Route>
               <Route exact path="/login">
-                {isAuthorized() ? (
+                {isAuthenticated() ? (
                   // redirect to diff page?
                   <div>Already logged in</div>
                 ) : (

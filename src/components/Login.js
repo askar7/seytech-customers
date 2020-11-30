@@ -34,7 +34,7 @@ class Login extends Component {
       .then((data) => {
         console.log(data);
         this.setState({ userInfo: data.customer });
-        this.props.onLoginSubmit(data.customer.name);
+        this.props.onLoginSubmit(data.customer.name, data.token);
         this.props.history.push('/customers');
       })
       .catch((err) => {

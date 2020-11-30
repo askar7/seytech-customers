@@ -1,4 +1,12 @@
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
+// Cookies is not working stable in localhost. Lets keep using localstorage.
 
-export const getAccessToken = async () => await Cookies.get('token');
-export const isAuthorized = () => !!getAccessToken();
+// IN PRODUCTION
+// export const getAccessToken = () => Cookies.get('token');
+// export const isAuthenticated = () => !!getAccessToken();
+// export const removeToken = async () => await Cookies.remove('token');
+
+// IN DEVELOPMENT
+export const getAccessToken = () => localStorage.getItem('token');
+export const isAuthenticated = () => !!getAccessToken();
+export const removeToken = () => localStorage.removeItem('token');
