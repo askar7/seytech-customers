@@ -10,6 +10,7 @@ import {
   Label,
   Input,
   Col,
+  FormText
 } from 'reactstrap';
 
 const emptyCustomer = {
@@ -33,6 +34,7 @@ class AddCustomer extends Component {
     this.state = {
       modal: false,
       customer: emptyCustomer,
+      isValid: false
     };
   }
 
@@ -50,15 +52,20 @@ class AddCustomer extends Component {
   };
 
   add = () => {
-    this.props.addCustomer(this.state.customer);
-    this.toggle();
-    // reset customer
-    const customer = { ...emptyCustomer };
-    this.setState({ customer });
+    const {name, lastName, email, password} = this.state.customer
+    if(name === "" || lastName === "" || email === "" || password === ""){
+      this.setState({ isValid: true, modal: true})
+    } else {
+      this.props.addCustomer(this.state.customer);
+      this.toggle();
+      // reset customer
+      const customer = { ...emptyCustomer };
+      this.setState({ customer });
+    }
   };
 
   render() {
-    const { modal } = this.state;
+    const { modal, isValid } = this.state;
     const {
       name,
       lastName,
@@ -92,6 +99,7 @@ class AddCustomer extends Component {
                     id="name"
                     placeholder="Name. ex: John ... "
                   />
+                  {isValid ? <FormText color="danger">This field can not be empty!</FormText> : ""}
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -104,6 +112,7 @@ class AddCustomer extends Component {
                     id="lastName"
                     placeholder="LastName. ex: Doe ... "
                   />
+                  {isValid ? <FormText color="danger">This field can not be empty!</FormText> : ""}
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -128,6 +137,7 @@ class AddCustomer extends Component {
                     id="email"
                     placeholder="Email. ex: john@doe.com ... "
                   />
+                  {isValid ? <FormText color="danger">This field can not be empty!</FormText> : ""}
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -140,6 +150,7 @@ class AddCustomer extends Component {
                     id="password"
                     placeholder="Password. Min 4 charachters"
                   />
+                  {isValid ? <FormText color="danger">This field can not be empty!</FormText> : ""}
                 </Col>
               </FormGroup>
               <FormGroup row>
