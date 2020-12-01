@@ -19,11 +19,11 @@ const emptyCustomer = {
   email: '',
   password: '',
   state: '',
-  phone: 0,
+  phone: 'Phone. ex: 312 434 4343',
   role: 'student',
   github: '',
   courses: [],
-  payments: 0,
+  payments: 12000,
   repl: '',
 };
 
@@ -83,9 +83,6 @@ class AddCustomer extends Component {
           <ModalBody>
             <Form>
               <FormGroup row>
-                <Label for="name" sm={2}>
-                  Name
-                </Label>
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
@@ -93,14 +90,11 @@ class AddCustomer extends Component {
                     type="text"
                     name="name"
                     id="name"
-                    placeholder="Name"
+                    placeholder="Name. ex: John ... "
                   />
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="lastName" sm={2}>
-                  Lastname
-                </Label>
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
@@ -108,14 +102,11 @@ class AddCustomer extends Component {
                     type="text"
                     name="lastName"
                     id="lastName"
-                    placeholder="Lastname"
+                    placeholder="LastName. ex: Doe ... "
                   />
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="avatar" sm={2}>
-                  Avatar
-                </Label>
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
@@ -123,14 +114,11 @@ class AddCustomer extends Component {
                     type="text"
                     name="avatar"
                     id="avatar"
-                    placeholder="Avatar"
+                    placeholder="Avatar url. ex: https://myavatars.com/me.jpg ..."
                   />
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="email" sm={2}>
-                  Email
-                </Label>
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
@@ -138,14 +126,11 @@ class AddCustomer extends Component {
                     type="email"
                     name="email"
                     id="email"
-                    placeholder="Email"
+                    placeholder="Email. ex: john@doe.com ... "
                   />
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="password" sm={2}>
-                  Password
-                </Label>
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
@@ -153,14 +138,11 @@ class AddCustomer extends Component {
                     type="password"
                     name="password"
                     id="password"
-                    placeholder="Password"
+                    placeholder="Password. Min 4 charachters"
                   />
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="state" sm={2}>
-                  State
-                </Label>
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
@@ -168,49 +150,42 @@ class AddCustomer extends Component {
                     type="text"
                     name="state"
                     id="state"
-                    placeholder="State"
+                    placeholder="State. ex: CA, WA ..."
                   />
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="phone" sm={2}>
+                {/* <Label for="phone" sm={2}>
                   Phone
-                </Label>
+                </Label> */}
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
                     value={phone}
-                    type="number"
+                    type="tel"
                     name="phone"
                     id="phone"
-                    placeholder="Phone"
                   />
                 </Col>
               </FormGroup>
               <FormGroup tag="fieldset" row>
-                <Label for="customer" sm={2}>
-                  Role
-                </Label>
                 <Col sm={10}>
-                  <FormGroup check>
-                    <Input
-                      onChange={this.onChange}
-                      type="select"
-                      name="role"
-                      id="role"
-                      value={role}
-                    >
-                      <option value="customer">Customer</option>
-                      <option value="manager">Manager</option>
-                      <option value="admin">Admin</option>
-                    </Input>
-                  </FormGroup>
+                  <Input
+                    onChange={this.onChange}
+                    type="select"
+                    name="role"
+                    id="role"
+                    value={role}
+                    placeholder="Role"
+                  >
+                    <option value="">-- Select role --</option>
+                    <option value="customer">Customer</option>
+                    <option value="manager">Manager</option>
+                    <option value="admin">Admin</option>
+                  </Input>
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="github" sm={2}>
-                  Github
-                </Label>
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
@@ -218,14 +193,11 @@ class AddCustomer extends Component {
                     type="text"
                     name="github"
                     id="github"
-                    placeholder="Github"
+                    placeholder="Github. ex: https://github.com/johndoe ..."
                   />
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="courses" sm={2}>
-                  Courses
-                </Label>
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
@@ -233,14 +205,14 @@ class AddCustomer extends Component {
                     type="text"
                     name="courses"
                     id="courses"
-                    placeholder="React, JS, CSS, ..."
+                    placeholder="Courses. ex: React, JS, CSS, ..."
                   />
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="payments" sm={2}>
+                {/* <Label for="payments" sm={2}>
                   Payments
-                </Label>
+                </Label> */}
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
@@ -253,9 +225,6 @@ class AddCustomer extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label for="repl" sm={2}>
-                  Repl
-                </Label>
                 <Col sm={10}>
                   <Input
                     onChange={this.onChange}
@@ -263,7 +232,7 @@ class AddCustomer extends Component {
                     type="text"
                     name="repl"
                     id="repl"
-                    placeholder="Repl"
+                    placeholder="Repl. ex: https://repl.it/johndoe ..."
                   />
                 </Col>
               </FormGroup>
@@ -284,22 +253,3 @@ class AddCustomer extends Component {
 }
 
 export default AddCustomer;
-
-/*
-const data = [
-  {countryName: "USA", currency:"dollar", products:[
-    {name: "apple", active:true, subProducts:[
-      {name: "iPhone", price: 40, sold:4},
-      {name: "iPad", price: 530, sold:4},
-      {name: "watch", price: 530},
-    ]}
-  ]},
-  {countryName: "Russia", currency:"rubl", products:[
-    {name: "apple", active:true, subProducts:[
-      {name: "iPhone", price: 40, sold:4},
-      {name: "iPad", price: 530, sold:4},
-      {name: "watch", price: 530},
-    ]}
-  ]}
-]
-*/
