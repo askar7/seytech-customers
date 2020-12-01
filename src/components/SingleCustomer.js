@@ -4,19 +4,27 @@ import { withRouter } from 'react-router';
 
 class SingleCustomer extends Component {
   constructor(props) {
-    super();
-
-    const { id, action } = props.match.params;
-    const customerProp = props.customers.find((item) => item.id === Number(id));
-    const customer = JSON.parse(JSON.stringify(customerProp));
-    const originalCustomer = JSON.parse(JSON.stringify(customer));
+    super(props);
     this.state = {
-      editMode: action ? true : false,
-      customer,
-      originalCustomer,
+      editMode: props.match.params.action ? true : false,
+      customer: {},
+      originalCustomer: {},
     };
   }
 
+  componentDidMount() {
+    console.log('this.props.customers', this.props.customers);
+    const { id } = this.props.match.params;
+    const customerProp = this.props.customers.find(
+      (item) => item.id === Number(id)
+    );
+    // const customer = JSON.parse(JSON.stringify(customerProp));
+    // const originalCustomer = JSON.parse(JSON.stringify(customer));
+    this.setState({
+      customer: customerProp,
+      originalCustomer: customerProp,
+    });
+  }
   delete = () => {
     this.props.delete(this.state.customer.id);
     this.props.history.push('/customers');

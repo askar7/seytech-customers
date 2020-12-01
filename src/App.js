@@ -16,41 +16,135 @@ import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
 import NoMatch from './components/NoMatch';
-import { isAuthenticated, removeToken, getAccessToken } from './auth';
+import { isAuthenticated, removeToken } from './auth';
 // import Cookies from 'js-cookie';
+import { customersUrl, mainUrl } from './components/api';
+import { Alert } from 'reactstrap';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLoggedIn: false,
       customerName: '',
+      customers: [],
+      isLoading: false,
+      error: '',
+      notification: '',
     };
   }
 
-  delete = (id) => {
-    //filter
-    // const customers = this.state.customers.filter((item) => item.id !== id);
-    // this.setState({ customers });
+  getCustomers = () => {
+    this.setState({ isLoading: true });
+    fetch(customersUrl, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Server Error!');
+        }
+      })
+      .then((data) => {
+        // console.log(data);
+        this.setState({ customers: data.customers, isLoading: false });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({ error: err.message });
+      });
   };
+  componentDidMount() {
+    this.getCustomers();
+  }
 
-  setUser = (userInfo) => this.setState({ userInfo, isLoggedIn: true });
+  delete = (customerId) => {
+    fetch(`${mainUrl}/customer/${customerId}`, {
+      method: 'delete',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Server Error!');
+        }
+      })
+      .then((data) => {
+        if (data.message) {
+          //
+          const updatedCustomers = this.state.customers.filter(
+            (customer) => customer._id !== customerId
+          );
+
+          this.setState({
+            notification: data.message,
+            customers: updatedCustomers,
+          });
+        }
+        setTimeout(() => {
+          this.setState({ notification: '' });
+        }, 2500);
+      })
+      .catch((err) => {
+        this.setState({ notification: err.message });
+        setTimeout(() => {
+          this.setState({ notification: '' });
+        }, 2500);
+      });
+  };
 
   logOut = () => {
     // in production
     // Cookies.remove('token');
-    // simply rerender
-    this.setState({ isLoggedIn: false });
     // in development
+    this.setState({ customerName: '' });
     removeToken();
   };
 
   addCustomer = (customer) => {
-    const { customers } = this.state;
-    customer.id = customers.length + 1;
-    customers.unshift(customer);
-    this.setState({ customers });
-    console.log(this.state.customers);
+    console.log(customer);
+    fetch(`${mainUrl}/create`, {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(customer),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Server Error!');
+        }
+      })
+      .then((data) => {
+        if (data.customer) {
+          const updatedCustomers = [data.customer, ...this.state.customers];
+
+          this.setState({
+            notification: data.message,
+            customers: updatedCustomers,
+          });
+        }
+        setTimeout(() => {
+          this.setState({ notification: '' });
+        }, 2500);
+      })
+      .catch((err) => {
+        this.setState({ notification: err.message });
+        setTimeout(() => {
+          this.setState({ notification: '' });
+        }, 2500);
+      });
   };
 
   onLoginSubmit = (customerName, token) => {
@@ -58,10 +152,55 @@ class App extends Component {
     localStorage.setItem('token', token);
     localStorage.setItem('customerName', customerName);
     // simply rerender
-    this.setState({ isLoggedIn: true, customerName: customerName });
+    this.setState({ customerName: customerName });
   };
   render() {
-    const { customerName } = this.state;
+    const {
+      customerName,
+      customers,
+      isLoading,
+      error,
+      notification,
+    } = this.state;
+    console.log('customers', customers);
+
+    let customerContent;
+    if (isLoading) {
+      customerContent = <div>Loading...</div>;
+    }
+
+    if (error) {
+      customerContent = (
+        <Alert color="danger">
+          <p>{error}</p>
+        </Alert>
+      );
+    }
+
+    if (customers.length === 0) {
+      customerContent = isAuthenticated() ? (
+        <Customers
+          addCustomer={this.addCustomer}
+          customerName={customerName}
+          customers={[]}
+        />
+      ) : (
+        <Redirect to="/login" />
+      );
+    }
+    if (customers.length > 0) {
+      customerContent = isAuthenticated() ? (
+        <Customers
+          addCustomer={this.addCustomer}
+          delete={this.delete}
+          customerName={customerName}
+          customers={customers}
+          notification={notification}
+        />
+      ) : (
+        <Redirect to="/login" />
+      );
+    }
     return (
       <Container fluid="xl">
         <Router>
@@ -103,15 +242,7 @@ class App extends Component {
                 <Contact />
               </Route>
               <Route exact path="/customers">
-                {isAuthenticated() ? (
-                  <Customers
-                    addCustomer={this.addCustomer}
-                    delete={this.delete}
-                    customerName={customerName}
-                  />
-                ) : (
-                  <Redirect to="/login" />
-                )}
+                {customerContent}
               </Route>
               <Route path="/customer/:id">
                 <SingleCustomer
@@ -130,10 +261,7 @@ class App extends Component {
                   // redirect to diff page?
                   <div>Already logged in</div>
                 ) : (
-                  <Login
-                    setUser={this.setUser}
-                    onLoginSubmit={this.onLoginSubmit}
-                  />
+                  <Login onLoginSubmit={this.onLoginSubmit} />
                 )}
               </Route>
               <Route path="*">
