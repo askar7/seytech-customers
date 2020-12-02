@@ -57,7 +57,7 @@ class Customers extends Component {
                   border: '1px solid lightgray',
                   borderRadius: '5px',
                 }}
-                placeholder="Search..."
+                placeholder="Search customers ..."
               />
             </div>
             <div className="search-select">
