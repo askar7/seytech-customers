@@ -199,10 +199,10 @@ class SingleCustomer extends Component {
       paymentContent = editMode ? (
         <input
           onChange={(e) => this.customerChange('payment', e.target.value)}
-          value={customer.payment}
+          value={customer.payments}
         />
       ) : (
-        customer.payment
+        customer.payments
       );
     }
 

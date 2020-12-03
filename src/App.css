@@ -39,3 +39,10 @@
 .customers-wrapper {
   border: 1px solid red;
 } */
+.customers-wrapper table {
+  font-size: 12px;
+}
+.customers-wrapper table .btn {
+  font-size: 12px;
+  padding: 2px 4px;
+}

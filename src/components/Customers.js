@@ -90,16 +90,16 @@ class Customers extends Component {
               <th onClick={() => this.sortBy('name')}>
                 Name {sortBy === 'name'}
               </th>
+              <th>Last Name</th>
               <th>State</th>
               <th>Email</th>
               <th>Phone</th>
               <th>Payment</th>
               <th>Courses</th>
-              <th onClick={() => this.sortBy('role')}>
-                Role {sortBy === 'role'}
-              </th>
-              <th onClick={() => this.sortBy('github')}>
-                Github {sortBy === 'github'}
+              <th>Role</th>
+              <th>Github</th>
+              <th onClick={() => this.sortBy('createdAt')}>
+                CreatedAt {sortBy === 'createdAt'}
               </th>
               <th>Edit</th>
               <th>Delete</th>
@@ -110,7 +110,7 @@ class Customers extends Component {
               const {
                 _id,
                 name,
-                // lastName,
+                lastName,
                 avatar,
                 email,
                 state,
@@ -118,7 +118,8 @@ class Customers extends Component {
                 role,
                 github,
                 courses,
-                payment,
+                payments,
+                createdAt,
               } = customer;
               const url = `/customer/${_id}`;
               const urlEdit = `/customer/${_id}/edit`;
@@ -132,13 +133,21 @@ class Customers extends Component {
                     {' '}
                     <Link to={url}>{name}</Link>{' '}
                   </td>
-                  <td>{state}</td>
+                  <td>{lastName}</td>
+                  {state ? <td>{state}</td> : <td>N/A</td>}
                   <td>{email}</td>
-                  <td>{phone}</td>
-                  <td>{payment}</td>
-                  <td>{courses}</td>
-                  <td>{role}</td>
-                  <td>{github} </td>
+                  {phone ? <td>{phone}</td> : <td>N/A</td>}
+
+                  {payments ? <td>{payments}</td> : <td>N/A</td>}
+
+                  {courses ? <td>{courses}</td> : <td>N/A</td>}
+
+                  {/* todo */}
+                  {role ? <td>{role}</td> : <td>Not Assigned</td>}
+
+                  {github ? <td>{github}</td> : <td>N/A</td>}
+
+                  {createdAt}
                   <td>
                     <Button color="primary">
                       <Link className="text-white" to={urlEdit}>
