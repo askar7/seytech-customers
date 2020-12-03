@@ -58,7 +58,7 @@ class Customers extends Component {
   };
   render() {
     const { customers, notification } = this.props;
-    const { searchBy, sortBy, searchValue, asc } = this.state;
+    const { searchBy, sortBy, searchValue } = this.state;
     // search
     const filteredCustomers = customers.filter((item) => {
       return item[searchBy].toLowerCase().includes(searchValue.toLowerCase());
@@ -184,7 +184,6 @@ class Customers extends Component {
                   <td>
                     {localStorage.getItem('customerId') === _id ? (
                       <Button
-                        color="primary"
                         onClick={() => this.props.delete(_id)}
                         color="danger"
                         disabled
@@ -193,7 +192,6 @@ class Customers extends Component {
                       </Button>
                     ) : (
                       <Button
-                        color="primary"
                         onClick={() => this.props.delete(_id)}
                         color="danger"
                       >
