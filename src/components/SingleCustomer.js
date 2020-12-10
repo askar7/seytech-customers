@@ -44,9 +44,31 @@ class SingleCustomer extends Component {
       });
   }
 
-  delete = () => {
-    this.props.delete(this.state.customer._id);
-    this.props.history.push('/customers');
+  delete = (customerId) => {
+    fetch(`${mainUrl}/customer/${customerId}`, {
+      method: 'delete',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Server Error!');
+        }
+      })
+      .then((data) => {
+        console.log('data', data);
+        this.props.history.push('/customers');
+      })
+      .catch((err) => {
+        this.setState({ notification: err.message });
+        setTimeout(() => {
+          this.setState({ notification: '' });
+        }, 2500);
+      });
   };
 
   onEdit = () => {
@@ -303,11 +325,15 @@ class SingleCustomer extends Component {
             {saveContent}
             {cancelContent}
             {localStorage.getItem('customerId') === customer._id ? (
-              <Button onClick={this.delete} color="danger" disabled>
+              <Button
+                onClick={() => this.delete(customer._id)}
+                color="danger"
+                disabled
+              >
                 Delete {this.state.customer.name}
               </Button>
             ) : (
-              <Button onClick={this.delete} color="danger">
+              <Button onClick={() => this.delete(customer._id)} color="danger">
                 Delete {this.state.customer.name}
               </Button>
             )}

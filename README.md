@@ -92,3 +92,15 @@ Seytech Customers CRUD application.
     * Lots of Code Cleanup
     * CRUD
     * Client form validation
+
+## Day 6 - 12/02/2020
+
+    * Lots of Code Cleanup
+    * Search
+    * Sort
+
+## Day 5 - 12/04/2020
+
+    * Lots of Code Cleanup
+    * Pagination
+    * Lazy Loading, Suspense

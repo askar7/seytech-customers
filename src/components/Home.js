@@ -1,14 +1,15 @@
-import { Button } from 'reactstrap';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default function Home() {
   return (
     <div>
-      <h1>Home Page</h1>
-      <Link to="/login">
-        <Button color="primary">Login</Button>
-      </Link>
+      <h1>Sytech</h1>
+      <h3>Fullstack Software Developer Bootcamp</h3>
+      <h3>Testimonials</h3>
+      <h3>AVAILABLE COURSES</h3>
+      <h3>Full-Time! Real Time! Online!</h3>
+      <h3>Our Team</h3>
+      <h3>...</h3>
     </div>
   );
 }

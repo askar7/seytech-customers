@@ -28,9 +28,13 @@
 .menu {
   list-style: none;
   display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
+  justify-content: flex-end;
+  padding: 8px;
   border-bottom: 1px solid gray;
+}
+
+.menu li {
+  margin-left: 40px;
 }
 
 /* .login-container {
@@ -69,4 +73,22 @@
 }
 .single-customer-wrapper .btn {
   margin: 10px;
+}
+
+/* pagination */
+.pagination {
+  margin: 10px 0;
+}
+.pagination .arrow {
+  border: 1px solid;
+  padding: 5px;
+  cursor: pointer;
+}
+.arrow.prev,
+.arrow.next {
+  padding: 5px 20px;
+}
+.arrow.active {
+  background-color: #007bff;
+  color: #fff;
 }

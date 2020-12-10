@@ -45,7 +45,7 @@ class AddCustomer extends Component {
     customer[id] = value;
     if (id === 'courses') {
       const courses = value.split(',');
-      customer[id] = courses; // courses['courses'] = ['JS', 'React', ...]
+      customer[id] = courses;
     }
     this.setState({ customer });
   };
