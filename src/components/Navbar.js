@@ -15,13 +15,13 @@ export default function Navbar({ logOut }) {
         <li>
           {' '}
           <Link
-            to="/login"
             style={{
               background: '#007bff',
               color: '#fff',
-              padding: '2px 6px',
-              borderRadius: '5px',
+              padding: '4px 6px',
+              borderRadius: '4px',
             }}
+            to="/login"
           >
             Login
           </Link>{' '}
@@ -29,14 +29,19 @@ export default function Navbar({ logOut }) {
       )}
       {isAuthenticated() && (
         <li>
+          {' '}
           <Link to="/dashboard">Dashboard</Link>{' '}
         </li>
       )}
+
+      {/* todo: only available to super admin  */}
       {isAuthenticated() && (
         <li>
+          {' '}
           <Link to="/customers">Customers</Link>{' '}
         </li>
       )}
+
       {!isAuthenticated() && (
         <li>
           {' '}
